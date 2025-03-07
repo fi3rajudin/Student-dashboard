@@ -8,7 +8,7 @@
   </head>
   <body>
     <header class="bg-dark text-light p-5 text-center">
-        <h1 class="text-center">Chronostudy</h1> 
+        <h1 class="text-center">Studybuddy</h1> 
     </header>
 
     <div id="navbar-placeholder"></div>
@@ -17,6 +17,15 @@
     <h1>Your all in one student dashboard!</h1>
     <div class="card p-3 bg-light">
         <h2>Class Schedule</h2>
+        <div class="mb-3">
+            <label for="scheduleUpload" class="form-label">Upload your class schedule:</label>
+            <input class="form-control" type="file" id="scheduleUpload" accept="image/*">
+        </div>
+        <!-- Display Uploaded Picture -->
+        <div id="schedulePreview" class="text-center mt-3" style="display: none;">
+            <h5>Schedule :</h5>
+            <img id="previewImg" src="" alt="Class Schedule" class="img-fluid rounded shadow">
+        </div>
 
     </div>
 </div>

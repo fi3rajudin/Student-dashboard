@@ -1,6 +1,6 @@
-// const API_URL_SCORES = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/scores';
-// const API_URL_NOTES = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/notes';
-// const API_URL_TRACKER = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/tracker'
+const API_URL_SCORES = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/scores';
+const API_URL_NOTES = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/notes';
+const API_URL_TRACKER = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/tracker'
 
 document.addEventListener("DOMContentLoaded", async () => {
     // 🥧 Fetch scores data and render pie chart

@@ -1,4 +1,4 @@
-const API_URL = 'https://api.sheety.co/8a2495540de3f6b32f93631ef4abf0bd/studentDashboard/scores';
+// const API_URL = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/scores';
 const API_KEY = 'thisisasecretkeyforthisapi';  // Replace with your actual API key
 
 // Fetch and display employees when the page loads

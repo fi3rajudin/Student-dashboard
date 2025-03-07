@@ -1,5 +1,6 @@
-const API_URL_SCORES = 'https://api.sheety.co/8a2495540de3f6b32f93631ef4abf0bd/studentDashboard/scores';
-const API_URL_NOTES = 'https://api.sheety.co/8a2495540de3f6b32f93631ef4abf0bd/studentDashboard/notes';
+// const API_URL_SCORES = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/scores';
+// const API_URL_NOTES = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/notes';
+// const API_URL_TRACKER = 'https://api.sheety.co/9e85471184750ab5c58772ba225a1c1a/studentDashboard/tracker'
 
 document.addEventListener("DOMContentLoaded", async () => {
     // 🥧 Fetch scores data and render pie chart
@@ -121,3 +122,80 @@ const generateColors = (count) => {
     }
     return colors.slice(0, count);
 };
+
+//Creating tracker bar chart
+
+d3.json(API_URL_TRACKER).then(data => {
+    console.log(data.tracker);
+    const dataset = data.tracker;
+    const svg = d3.select("#trackerBarChart");  // Target the new SVG element
+
+    const width = +svg.attr("width");
+    const height = +svg.attr("height");
+    const padding = 40;
+
+    // Extract subjects and hours
+    const subjects = dataset.map(d => d.subject);
+    const hours = dataset.map(d => d.hours);
+
+    // xScale for subjects (categorical data)
+    const xScale = d3.scaleBand()
+        .domain(subjects)
+        .range([padding, width - padding])
+        .padding(0.2);
+
+    // yScale for hours
+    const yScale = d3.scaleLinear()
+        .domain([0, d3.max(hours)])
+        .range([height - padding, padding]);
+
+    // x-axis
+    const xAxis = d3.axisBottom(xScale);
+    svg.append("g")
+        .attr("id", "x-axis")
+        .attr("transform", `translate(0,${height - padding})`)
+        .call(xAxis);
+
+    // y-axis
+    const yAxis = d3.axisLeft(yScale);
+    svg.append("g")
+        .attr("id", "y-axis")
+        .attr("transform", `translate(${padding},0)`)
+        .call(yAxis);
+
+    // Create the bars
+    svg.selectAll(".bar")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", d => xScale(d.subject))
+        .attr("y", d => yScale(d.hours))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => Math.max(0, height - padding - yScale(d.hours)))
+        .attr("class", "bar")
+        .attr("fill", "#69b3a2")
+        .on("mouseover", (event, data) => {
+            d3.select("#tooltip")
+                .style("display", "block")
+                .style("left", (event.pageX - 170) + "px")
+                .style("top", (event.pageY - 60) + "px")
+                .html(`Subject: ${data.subject} <br/> Hours: ${data.hours}`);
+        })
+        .on("mouseout", () => {
+            d3.select("#tooltip").style("display", "none");
+        });
+
+    // Tooltip for displaying data on hover
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("id", "tooltip")
+        .style("position", "absolute")
+        .style("background-color", "white")
+        .style("border", "1px solid #ddd")
+        .style("padding", "5px")
+        .style("border-radius", "5px")
+        .style("display", "none");
+
+}).catch(error => {
+    console.log(error);
+});

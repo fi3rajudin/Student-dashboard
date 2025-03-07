@@ -66,10 +66,20 @@ addBtn.addEventListener('click', () => {
     })
     .then(response => response.json())
     .then(data => {
-        alert('Data sent successfully');
+        //to add an alert that is user friendly and no need of user interaction,
+        document.querySelector(".alert-success").removeAttribute("hidden");
+        setTimeout(()=>{
+            document.querySelector(".alert-success").setAttribute("hidden",true)
+        },2000) //adding delay so the user can read the message
+        getEmployees();
         getScores();
     }).catch(error => {
-        alert('Error occured');
+        //to add an alert that is user friendly and no need of user interaction,
+        document.querySelector(".alert-danger").removeAttribute("hidden");
+        setTimeout(()=>{
+            document.querySelector(".alert-danger").setAttribute("hidden",true)
+        },2000) //adding delay so the user can read the message
+        getEmployees();
         console.error('[Error] :', error);
     })
 

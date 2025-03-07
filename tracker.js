@@ -54,11 +54,19 @@ studyForm.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            alert('Session added successfully!');
+            //to add an alert that is user friendly and no need of user interaction,
+        document.querySelector(".alert-success").removeAttribute("hidden");
+        setTimeout(()=>{
+            document.querySelector(".alert-success").setAttribute("hidden",true)
+        },2000) //adding delay so the user can read the message
             studyForm.reset();
             fetchSessions();
         } else {
-            alert('Failed to add session.');
+            //to add an alert that is user friendly and no need of user interaction,
+        document.querySelector(".alert-danger").removeAttribute("hidden");
+        setTimeout(()=>{
+            document.querySelector(".alert-danger").setAttribute("hidden",true)
+        },2000) //adding delay so the user can read the message
         }
     } catch (error) {
         console.error('[Add Error]:', error);
